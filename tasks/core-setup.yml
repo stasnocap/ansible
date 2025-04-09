@@ -1,0 +1,16 @@
+- name: Install System Packages 1 ("make", "gcc", "ripgrep", "unzip", "git", "xclip", "curl")
+  become: true
+  apt:
+    name: ["make", "gcc", "ripgrep", "unzip", "git", "xclip", "curl"]
+  tags:
+    - install
+    - neovim
+    - core
+
+- name: Install System Packages 2 ("pavucontrol", "htop")
+  become: true
+  apt:
+    name: ["pavucontrol", "htop"]
+  tags:
+    - install
+    - core

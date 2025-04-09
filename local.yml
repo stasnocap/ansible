@@ -14,9 +14,10 @@
       - install
       - core
   tasks:
+    - include_tasks: tasks/core-setup.yml
     - include_tasks: tasks/ssh.yml
-    #- include: tasks/git-setup.yml
-    #- include: tasks/core-setup.yml
+    - include_tasks: tasks/git-setup.yml
+    - include_tasks: tasks/nvim-setup.yml
     #- include: tasks/node-setup.yml
     #- include: tasks/npm-packages.yml
     #- include: tasks/zsh-setup.yml

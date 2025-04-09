@@ -1,0 +1,38 @@
+- name: Download Neovim binary
+  ansible.builtin.get_url:
+    url: "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+    dest: "/tmp/nvim-linux-x86_64.tar.gz"
+    # damn work issues
+    validate_certs: no
+
+- name: Remove existing Neovim directory (if any)
+  ansible.builtin.file:
+    path: "/opt/nvim-linux-x86_64"
+    state: absent
+
+- name: Create Neovim directory
+  ansible.builtin.file:
+    path: "/opt/nvim-linux-x86_64"
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: Extract Neovim archive
+  ansible.builtin.unarchive:
+    src: "/tmp/nvim-linux-x86_64.tar.gz"
+    dest: "/opt/"
+    remote_src: true
+  become: true
+
+- name: Create symlink for Neovim binary
+  ansible.builtin.file:
+    src: "/opt/nvim-linux-x86_64/bin/nvim"
+    dest: "/usr/local/bin/nvim"
+    state: link
+  become: true
+
+- name: Clone config.nvim repository
+  ansible.builtin.git:
+    repo: "https://github.com/stasnocap/config.nvim.git"
+    dest: "{{ ansible_env.XDG_CONFIG_HOME | default(ansible_env.HOME ~ '/.config') }}/nvim"
+    update: yes
