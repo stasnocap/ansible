@@ -4,6 +4,6 @@
 2. docker run --rm -it ansible /bin/bash
 3. ansible-playbook -i inventory.ini local.yml
 
-# Npm certificate
+## Npm certificate
 
 1. openssl s_client -showcerts -connect registry.npmjs.org:443 </dev/null | awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/' > npm-registry-cert.pem

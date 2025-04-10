@@ -14,12 +14,12 @@ RUN update-ca-certificates
 
 FROM base AS prime
 ARG TAGS
+RUN echo "stasnocap ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/stasnocap
 RUN addgroup --gid 1000 stasnocap
 RUN adduser --gecos stasnocap --uid 1000 --gid 1000 --disabled-password stasnocap
-RUN echo "stasnocap ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/stasnocap
 USER stasnocap
-WORKDIR /home/stasnocap/
+WORKDIR /home/stasnocap/ansible
 
 FROM prime
-COPY . .
+COPY --chown=stasnocap:stasnocap . .
 CMD ["sh", "-c", "ansible-playbook $TAGS local.yml"]
