@@ -13,17 +13,56 @@
     tags:
       - install
       - core
+      - neovim
+      - node
+      - zsh
   tasks:
-    - include_tasks: tasks/core-setup.yml
-    - include_tasks: tasks/ssh.yml
-    - include_tasks: tasks/git-setup.yml
-    - include_tasks: tasks/nvim-setup.yml
-    #- include: tasks/node-setup.yml
-    #- include: tasks/npm-packages.yml
-    #- include: tasks/zsh-setup.yml
-    #- include: tasks/slack-setup.yml
+    - name: Include core setup tasks
+      ansible.builtin.include_tasks: tasks/core.yml
+      tags:
+        - install
+        - neovim
+        - core
+
+    - name: Include SSH setup tasks
+      ansible.builtin.include_tasks: tasks/ssh.yml
+      tags:
+        - dotfiles
+        - install
+        - ssh
+
+    - name: Include Git setup tasks
+      ansible.builtin.include_tasks: tasks/git.yml
+      tags:
+        - git-personal
+
+    - name: Include Neovim setup tasks
+      ansible.builtin.include_tasks: tasks/nvim.yml
+      tags:
+        - install
+        - neovim
+    - name: Include Node setup tasks
+      ansible.builtin.include_tasks: tasks/node.yml
+      tags:
+        - install
+        - node
+    - name: Include Npm packages tasks
+      ansible.builtin.include_tasks: tasks/npm-packages.yml
+      tags:
+        - install
+        - node
+    - name: Include Zsh setup tasks
+      ansible.builtin.include_tasks: tasks/zsh.yml
+      tags:
+        - install
+        - dotfiles
+        - zsh
+
+    #- include: tasks/node.yml
+    #- include: tasks/zsh.yml
+    #- include: tasks/slack.yml
     #- include: tasks/personal-projects.yml
-    #- include: tasks/nvim-setup.yml
+    #- include: tasks/nvim.yml
     #- include: tasks/brave.yml
     #- include: tasks/debugger.yml
     #- include: tasks/dotfiles.yml

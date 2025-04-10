@@ -2,6 +2,7 @@
   become: true
   apt:
     name: ["make", "gcc", "ripgrep", "unzip", "git", "xclip", "curl"]
+    state: present
   tags:
     - install
     - neovim
@@ -11,6 +12,7 @@
   become: true
   apt:
     name: ["pavucontrol", "htop"]
+    state: present
   tags:
     - install
     - core

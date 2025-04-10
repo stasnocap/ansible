@@ -4,11 +4,17 @@
     dest: "/tmp/nvim-linux-x86_64.tar.gz"
     # damn work issues
     validate_certs: no
+  tags:
+    - install
+    - neovim
 
 - name: Remove existing Neovim directory (if any)
   ansible.builtin.file:
     path: "/opt/nvim-linux-x86_64"
     state: absent
+  tags:
+    - install
+    - neovim
 
 - name: Create Neovim directory
   ansible.builtin.file:
@@ -16,6 +22,9 @@
     state: directory
     mode: "0755"
   become: true
+  tags:
+    - install
+    - neovim
 
 - name: Extract Neovim archive
   ansible.builtin.unarchive:
@@ -23,6 +32,9 @@
     dest: "/opt/"
     remote_src: true
   become: true
+  tags:
+    - install
+    - neovim
 
 - name: Create symlink for Neovim binary
   ansible.builtin.file:
@@ -30,9 +42,15 @@
     dest: "/usr/local/bin/nvim"
     state: link
   become: true
+  tags:
+    - install
+    - neovim
 
-- name: Clone config.nvim repository
-  ansible.builtin.git:
-    repo: "https://github.com/stasnocap/config.nvim.git"
-    dest: "{{ ansible_env.XDG_CONFIG_HOME | default(ansible_env.HOME ~ '/.config') }}/nvim"
-    update: yes
+- name: Install Lua and LuaRocks
+  apt:
+    name: ["lua5.4", "luarocks"]
+    state: present
+  become: true
+  tags:
+    - install
+    - neovim

@@ -16,3 +16,5 @@
 # damn work issues
 - name: Disable SSL verification in Git
   ansible.builtin.command: git config --global http.sslVerify false
+  tags:
+  - git-personal

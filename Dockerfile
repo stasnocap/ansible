@@ -1,11 +1,16 @@
 FROM debian:bookworm AS base
 WORKDIR /usr/local/bin
+
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y sudo software-properties-common curl git build-essential ansible && \
+    apt-get install -y sudo software-properties-common curl git build-essential ansible ca-certificates && \
     apt-get clean autoclean && \
     apt-get autoremove --yes
+
+# damn work issues
+COPY npm-registry-cert.pem /usr/local/share/ca-certificates/npm-registry-cert.crt
+RUN update-ca-certificates
 
 FROM base AS prime
 ARG TAGS

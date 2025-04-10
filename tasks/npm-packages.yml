@@ -1,0 +1,26 @@
+- name: Install Typescript server
+  npm:
+    name: typescript-language-server
+    global: yes
+  become: true
+  tags:
+    - install
+    - node
+
+- name: Install Typescript
+  npm:
+    name: typescript
+    global: yes
+  become: true
+  tags:
+    - install
+    - node
+
+- name: Install Html lsp
+  npm:
+    name: vscode-langservers-extracted
+    global: yes
+  become: true
+  tags:
+    - install
+    - node
