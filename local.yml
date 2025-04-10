@@ -19,6 +19,7 @@
       tags:
         - install
         - neovim
+        - st
         - core
     - name: Include SSH Setup Tasks
       ansible.builtin.include_tasks: tasks/ssh.yml
@@ -56,6 +57,11 @@
         - install
         - dotfiles
         - zsh
+    - name: Include St Setup Tasks
+      ansible.builtin.include_tasks: tasks/st.yml
+      tags:
+        - install
+        - st
     - name: Include Brave Setup Tasks
       ansible.builtin.include_tasks: tasks/brave.yml
       tags:

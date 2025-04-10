@@ -1,11 +1,12 @@
-- name: Install System Packages 1 ("make", "gcc", "ripgrep", "unzip", "git", "xclip", "curl")
+- name: Install System Packages 1 ("build-essential", "pkg-config", "cmake", "unzip", "git", "curl", "libfontconfig1-dev", "libfreetype6-dev", "libx11-dev", "libxft-dev", "libxinerama-dev")
   become: true
   apt:
-    name: ["build-essential", "cmake", "unzip", "git", "curl"]
+    name: ["build-essential", "pkg-config", "cmake", "unzip", "git", "curl", "libfontconfig1-dev", "libfreetype6-dev", "libx11-dev", "libxft-dev", "libxinerama-dev"]
     state: present
   tags:
     - install
     - neovim
+    - st
     - core
 
 - name: Install System Packages 2 ("pavucontrol", "htop")
