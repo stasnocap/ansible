@@ -71,3 +71,13 @@
       tags:
         - install
         - productivity
+    - name: Include Docker Setup Tasks
+      ansible.builtin.include_tasks: tasks/docker.yml
+      tags:
+        - install
+        - docker
+    - name: Include Home Setup Tasks
+      ansible.builtin.include_tasks: tasks/home.yml
+      tags:
+        - install
+        - home
