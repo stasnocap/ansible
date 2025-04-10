@@ -13,58 +13,61 @@
     tags:
       - install
       - core
-      - neovim
-      - node
-      - zsh
   tasks:
-    - name: Include core setup tasks
+    - name: Include core Setup Tasks
       ansible.builtin.include_tasks: tasks/core.yml
       tags:
         - install
         - neovim
         - core
-
-    - name: Include SSH setup tasks
+    - name: Include SSH Setup Tasks
       ansible.builtin.include_tasks: tasks/ssh.yml
       tags:
         - dotfiles
         - install
         - ssh
-
-    - name: Include Git setup tasks
+    - name: Include Git Setup Tasks
       ansible.builtin.include_tasks: tasks/git.yml
       tags:
         - git-personal
-
-    - name: Include Neovim setup tasks
+    - name: Include Neovim Setup Tasks
       ansible.builtin.include_tasks: tasks/nvim.yml
       tags:
         - install
         - neovim
-    - name: Include Node setup tasks
+    - name: Include Dotnet Setup Tasks
+      ansible.builtin.include_tasks: tasks/dotnet.yml
+      tags:
+        - install
+        - dotnet
+    - name: Include Node Setup Tasks
       ansible.builtin.include_tasks: tasks/node.yml
       tags:
         - install
         - node
-    - name: Include Npm packages tasks
+    - name: Include Npm Packages Setup Tasks
       ansible.builtin.include_tasks: tasks/npm-packages.yml
       tags:
         - install
         - node
-    - name: Include Zsh setup tasks
+    - name: Include Zsh Setup Tasks
       ansible.builtin.include_tasks: tasks/zsh.yml
       tags:
         - install
         - dotfiles
         - zsh
-
-    #- include: tasks/node.yml
-    #- include: tasks/zsh.yml
-    #- include: tasks/slack.yml
-    #- include: tasks/personal-projects.yml
-    #- include: tasks/nvim.yml
-    #- include: tasks/brave.yml
-    #- include: tasks/debugger.yml
-    #- include: tasks/dotfiles.yml
-    #- include: tasks/productivity-tools.yml
-    #- include: tasks/lsp.yml
+    - name: Include Brave Setup Tasks
+      ansible.builtin.include_tasks: tasks/brave.yml
+      tags:
+        - install
+        - brave
+    - name: Include Dotfiles Setup Tasks
+      ansible.builtin.include_tasks: tasks/brave.yml
+      tags:
+        - install
+        - brave
+    - name: Include Productivity Tools Setup Tasks
+      ansible.builtin.include_tasks: tasks/productivity-tools.yml
+      tags:
+        - install
+        - productivity
