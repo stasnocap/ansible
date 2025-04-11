@@ -5,8 +5,9 @@
     # damn work issues
     validate_certs: no
   tags:
-    - install
     - neovim
+    - wsl
+    - home
 
 - name: Remove existing Neovim directory (if any)
   ansible.builtin.file:
@@ -14,8 +15,9 @@
     state: absent
   become: true
   tags:
-    - install
     - neovim
+    - wsl
+    - home
 
 - name: Create Neovim directory
   ansible.builtin.file:
@@ -24,8 +26,9 @@
     mode: "0755"
   become: true
   tags:
-    - install
     - neovim
+    - wsl
+    - home
 
 - name: Extract Neovim archive
   ansible.builtin.unarchive:
@@ -34,8 +37,9 @@
     remote_src: true
   become: true
   tags:
-    - install
     - neovim
+    - wsl
+    - home
 
 - name: Create symlink for Neovim binary
   ansible.builtin.file:
@@ -44,8 +48,9 @@
     state: link
   become: true
   tags:
-    - install
     - neovim
+    - wsl
+    - home
 
 - name: Install Lua and LuaRocks
   apt:
@@ -53,5 +58,6 @@
     state: present
   become: true
   tags:
-    - install
     - neovim
+    - wsl
+    - home

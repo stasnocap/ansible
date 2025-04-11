@@ -3,5 +3,6 @@
     name: ["nodejs", "npm"]
   become: true
   tags:
-    - install
     - node
+    - wsl
+    - home

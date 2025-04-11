@@ -1,8 +1,7 @@
 - name: Install i3
   apt:
-    name: ["i3", "vlc", "qbittorrent"]
+    name: ["htop", "pavucontrol", "i3", "vlc", "qbittorrent"]
     state: present
   become: true
   tags:
-    - install
     - home

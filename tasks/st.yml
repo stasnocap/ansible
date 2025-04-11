@@ -3,8 +3,8 @@
     repo: https://git.suckless.org/st
     dest: "{{ lookup('env', 'HOME') }}/st"
   tags:
-    - install
     - st
+    - home
 
 - name: Apply Catppuccin Latte theme 1
   replace:
@@ -19,8 +19,8 @@
         [256] = "#4C4F69", [257] = "#EFF1F5", [258] = "#DC8A78"
       };
   tags:
-    - install
     - st
+    - home
 
 - name: Apply Catppuccin Latte theme 2
   replace:
@@ -32,8 +32,8 @@
       unsigned int defaultcs = 258;
       static unsigned int defaultrcs = 258;
   tags:
-    - install
     - st
+    - home
 
 - name: Compile and install st
   command:
@@ -42,5 +42,5 @@
     chdir: "{{ lookup('env', 'HOME') }}/st"
   become: true
   tags:
-    - install
     - st
+    - home

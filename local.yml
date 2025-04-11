@@ -3,6 +3,7 @@
     source_key: "{{ playbook_dir }}/.ssh/id_rsa"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
     personal: "{{ lookup('env', 'HOME') }}/personal"
+    work: "{{ lookup('env', 'HOME') }}/work"
   pre_tasks:
   - name: Update Apt
     become: true
@@ -11,79 +12,95 @@
       update_cache: true
       state: present
     tags:
-      - install
       - core
+      - wsl
+      - home
   tasks:
     - name: Include core Setup Tasks
       ansible.builtin.include_tasks: tasks/core.yml
       tags:
-        - install
         - neovim
         - st
         - core
+        - wsl
+        - home
     - name: Include SSH Setup Tasks
       ansible.builtin.include_tasks: tasks/ssh.yml
       tags:
         - dotfiles
-        - install
         - ssh
+        - wsl
+        - home
     - name: Include Git Setup Tasks
       ansible.builtin.include_tasks: tasks/git.yml
       tags:
         - git-personal
+        - wsl
+        - home
     - name: Include Neovim Setup Tasks
       ansible.builtin.include_tasks: tasks/nvim.yml
       tags:
-        - install
         - neovim
+        - wsl
+        - home
     - name: Include Dotnet Setup Tasks
       ansible.builtin.include_tasks: tasks/dotnet.yml
       tags:
-        - install
         - dotnet
+        - wsl
+        - home
     - name: Include Node Setup Tasks
       ansible.builtin.include_tasks: tasks/node.yml
       tags:
-        - install
         - node
+        - wsl
+        - home
     - name: Include Npm Packages Setup Tasks
       ansible.builtin.include_tasks: tasks/npm-packages.yml
       tags:
-        - install
         - node
+        - wsl
+        - home
     - name: Include Zsh Setup Tasks
       ansible.builtin.include_tasks: tasks/zsh.yml
       tags:
-        - install
         - zsh
         - dotfiles
+        - wsl
+        - home
     - name: Include St Setup Tasks
       ansible.builtin.include_tasks: tasks/st.yml
       tags:
-        - install
         - st
+        - home
     - name: Include Brave Setup Tasks
       ansible.builtin.include_tasks: tasks/brave.yml
       tags:
-        - install
         - brave
+        - home
     - name: Include Dotfiles Setup Tasks
       ansible.builtin.include_tasks: tasks/dotfiles.yml
       tags:
-        - install
         - dotfiles
+        - wsl
+        - home
+    - name: Include Work Projects Setup Tasks
+      ansible.builtin.include_tasks: tasks/work-projects.yml
+      tags:
+        - work-projects
     - name: Include Productivity Tools Setup Tasks
       ansible.builtin.include_tasks: tasks/productivity-tools.yml
       tags:
-        - install
         - productivity
+        - wsl
+        - home
     - name: Include Docker Setup Tasks
       ansible.builtin.include_tasks: tasks/docker.yml
       tags:
-        - install
         - docker
+        - wsl
+        - home
     - name: Include Home Setup Tasks
       ansible.builtin.include_tasks: tasks/home.yml
       tags:
-        - install
         - home

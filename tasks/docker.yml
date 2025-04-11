@@ -5,8 +5,9 @@
     mode: '0755'
   become: true
   tags:
-    - install
     - docker
+    - wsl
+    - home
 
 - name: Download Docker GPG key
   get_url:
@@ -15,24 +16,27 @@
     mode: '0644'
   become: true
   tags:
-    - install
     - docker
+    - wsl
+    - home
 
 - name: Add Docker repository to Apt sources
   shell: |
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
   become: true
   tags:
-    - install
     - docker
+    - wsl
+    - home
 
 - name: Update package lists after adding repository
   apt:
     update_cache: yes
   become: true
   tags:
-    - install
     - docker
+    - wsl
+    - home
 
 - name: Install Docker and plugins
   apt:
@@ -40,8 +44,9 @@
     state: present
   become: true
   tags:
-    - install
     - docker
+    - wsl
+    - home
 
 - name: Ensure Docker group exists
   group:
@@ -49,8 +54,9 @@
     state: present
   become: true
   tags:
-    - install
     - docker
+    - wsl
+    - home
 
 - name: Add user to Docker group
   user:
@@ -59,8 +65,9 @@
     append: yes
   become: true
   tags:
-    - install
     - docker
+    - wsl
+    - home
 
 - name: Restart Docker service
   systemd:
@@ -68,13 +75,15 @@
     state: restarted
   become: true
   tags:
-    - install
     - docker
+    - wsl
+    - home
 
 - name: Apply new group membership
   command: newgrp docker
   changed_when: false
   become: true
   tags:
-    - install
     - docker
+    - wsl
+    - home

@@ -1,19 +1,19 @@
-- name: Install System Packages 1 ("build-essential", "pkg-config", "cmake", "unzip", "git", "curl", "libfontconfig1-dev", "libfreetype6-dev", "libx11-dev", "libxft-dev", "libxinerama-dev")
+- name: Install System Packages 1 ("make", "gcc", "ripgrep", "unzip", "git", "xclip", "curl")
   become: true
   apt:
-    name: ["build-essential", "pkg-config", "cmake", "unzip", "git", "curl", "libfontconfig1-dev", "libfreetype6-dev", "libx11-dev", "libxft-dev", "libxinerama-dev"]
+    name: ["make", "gcc", "ripgrep", "unzip", "git", "xclip", "curl"]
     state: present
   tags:
-    - install
-    - neovim
-    - st
     - core
+    - wsl
+    - home
 
-- name: Install System Packages 2 ("pavucontrol", "htop")
+- name: Install System Packages 3 ("libfontconfig1-dev", "libfreetype6-dev", "libx11-dev", "libxft-dev", "libxinerama-dev")
   become: true
   apt:
-    name: ["pavucontrol", "htop"]
+    name: ["pkg-config", "libfontconfig1-dev", "libfreetype6-dev", "libx11-dev", "libxft-dev", "libxinerama-dev"]
     state: present
   tags:
-    - install
     - core
+    - st
+    - home

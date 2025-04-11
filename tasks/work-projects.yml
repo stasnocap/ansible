@@ -1,0 +1,41 @@
+- name: Accept SSH host key
+  ansible.builtin.shell: ssh-keyscan -H ivc-adsp.ivcmf.by >> ~/.ssh/known_hosts
+  tags:
+    - work-projects
+
+- name: Ensure SSH config file exists
+  ansible.builtin.file:
+    path: ~/.ssh/config
+    state: touch
+    mode: '0644'
+  tags:
+    - work-projects
+
+- name: Set SSH options
+  ansible.builtin.lineinfile:
+    path: ~/.ssh/config
+    line: "Host ivc-adsp.ivcmf.by\n    HostkeyAlgorithms +ssh-rsa\n    PubkeyAcceptedAlgorithms +ssh-rsa"
+  tags:
+    - work-projects
+
+- name: NSI exists
+  stat:
+    path: "{{ work }}/NSI"
+  register: nsi
+  tags:
+    - work-projects
+
+- name: Work Project NSI
+  ansible.builtin.git:
+    repo: 'ssh://ivc-adsp.ivcmf.by:22/DefaultCollection/NSI/_git/NSI'
+    bare: true
+    dest: "{{ work }}/NSI"
+  tags:
+    - work-projects
+  when: nsi.stat.exists == False
+
+- name: NSI Master/Development Checkout
+  shell: cd ~/work/NSI && git fetch && git worktree add master master && git worktree add development development
+  tags:
+    - work-projects
+  when: nsi.stat.exists == False

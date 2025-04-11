@@ -5,6 +5,10 @@
     value: "stasnocap@gmail.com"
   tags:
   - git-personal
+  - wsl
+  - home
+
+
 - name: Git personal setup name
   git_config:
     name: user.name
@@ -12,9 +16,12 @@
     value: "stasnocap"
   tags:
   - git-personal
+  - wsl
+  - home
 
 # damn work issues
 - name: Disable SSL verification in Git
   ansible.builtin.command: git config --global http.sslVerify false
   tags:
   - git-personal
+  - wsl
