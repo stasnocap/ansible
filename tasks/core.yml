@@ -5,6 +5,7 @@
     state: present
   tags:
     - core
+    - neovim
     - wsl
     - home
 
