@@ -6,19 +6,9 @@
     - install
     - st
 
-- name: Compile and install st
-  command:
-    cmd: make clean install
-  args:
-    chdir: "{{ lookup('env', 'HOME') }}/st"
-  become: true
-  tags:
-    - install
-    - st
-
 - name: Apply Catppuccin Latte theme 1
   replace:
-    path: "{{ lookup('env', 'HOME') }}/st/config.h"
+    path: "{{ lookup('env', 'HOME') }}/st/config.def.h"
     regexp: 'static const char \*colorname \[\] = {.*?};'
     replace: |
       static const char *colorname[] = {
@@ -34,13 +24,23 @@
 
 - name: Apply Catppuccin Latte theme 2
   replace:
-    path: "{{ lookup('env', 'HOME') }}/st/config.h"
+    path: "{{ lookup('env', 'HOME') }}/st/config.def.h"
     regexp: 'unsigned int defaultfg = \d+;\nunsigned int defaultbg = \d+;\nunsigned int defaultcs = \d+;\nstatic unsigned int defaultrcs = \d+;'
     replace: |
       unsigned int defaultfg = 256;
       unsigned int defaultbg = 257;
       unsigned int defaultcs = 258;
       static unsigned int defaultrcs = 258;
+  tags:
+    - install
+    - st
+
+- name: Compile and install st
+  command:
+    cmd: make clean install
+  args:
+    chdir: "{{ lookup('env', 'HOME') }}/st"
+  become: true
   tags:
     - install
     - st
