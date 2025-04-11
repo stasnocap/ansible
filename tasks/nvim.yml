@@ -12,6 +12,7 @@
   ansible.builtin.file:
     path: "/opt/nvim-linux-x86_64"
     state: absent
+  become: true
   tags:
     - install
     - neovim
