@@ -20,7 +20,7 @@
     - stow
 
 - name: Stow dotfiles
-  shell: cd $HOME/.dotfiles && ./debian
+  shell: cd $HOME/.dotfiles && ./install
   tags:
     - install
     - dotfiles
