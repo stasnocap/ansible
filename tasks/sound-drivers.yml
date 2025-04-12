@@ -1,0 +1,77 @@
+- name: Install PipeWire and related packages
+  apt:
+    name:
+      - pipewire
+      - pipewire-audio-client-libraries
+      - pipewire-pulse
+    state: present
+  become: true
+  tags:
+    - sound-drivers
+    - home
+
+- name: Enable lingering for the user
+  command: loginctl enable-linger stasnocap
+  become: true
+  tags:
+    - sound-drivers
+    - home
+
+- name: Enable PipeWire service
+  command: systemctl --user enable pipewire
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/$(id -u stasnocap)"
+  become: false
+  become_user: "stasnocap"
+  tags:
+    - sound-drivers
+    - home
+
+- name: Start PipeWire service
+  command: systemctl --user start pipewire
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/$(id -u stasnocap)"
+  become: false
+  become_user: "stasnocap"
+  tags:
+    - sound-drivers
+    - home
+
+- name: Enable PipeWire Pulse service
+  command: systemctl --user enable pipewire-pulse
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/$(id -u stasnocap)"
+  become: false
+  become_user: "stasnocap"
+  tags:
+    - sound-drivers
+    - home
+
+- name: Start PipeWire Pulse service
+  command: systemctl --user start pipewire-pulse
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/$(id -u stasnocap)"
+  become: false
+  become_user: "stasnocap"
+  tags:
+    - sound-drivers
+    - home
+
+- name: Remove PulseAudio
+  apt:
+    name: pulseaudio
+    state: absent
+    purge: yes
+  become: true
+  tags:
+    - sound-drivers
+    - home
+
+- name: Remove PulseAudio configuration
+  file:
+    path: /home/stasnocap/.config/pulse
+    state: absent
+  become: true
+  tags:
+    - sound-drivers
+    - home

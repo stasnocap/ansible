@@ -1,0 +1,20 @@
+- name: Install System Packages 1 ("make", "gcc", "ripgrep", "unzip", "git", "xclip", "curl")
+  become: true
+  apt:
+    name: ["software-properties-common", "build-essential", "pkg-config", "make", "gcc", "ripgrep", "unzip", "git", "xclip", "curl"]
+    state: present
+  tags:
+    - core
+    - neovim
+    - wsl
+    - home
+
+- name: Install St Packages("libfontconfig-dev", "libx11-dev", "libxft-dev")
+  become: true
+  apt:
+    name: ["libfontconfig-dev", "libx11-dev", "libxft-dev"]
+    state: present
+  tags:
+    - core
+    - st
+    - home

@@ -1,0 +1,47 @@
+- name: Ensure fonts directory exists
+  file:
+    path: ~/.local/share/fonts
+    state: directory
+    mode: "0755"
+  tags:
+    - nerd-font
+    - home
+
+- name: Download JetBrainsMono Nerd Font
+  get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip"
+    dest: "~/.local/share/fonts/JetBrainsMono.zip"
+  tags:
+    - nerd-font
+    - home
+
+- name: Unzip font file
+  unarchive:
+    src: "~/.local/share/fonts/JetBrainsMono.zip"
+    dest: "~/.local/share/fonts"
+    remote_src: yes
+  tags:
+    - nerd-font
+    - home
+
+- name: Remove ZIP file
+  file:
+    path: "~/.local/share/fonts/JetBrainsMono.zip"
+    state: absent
+  tags:
+    - nerd-font
+    - home
+
+- name: Install Noto Color Emoji fonts
+  apt:
+    name: fonts-noto-color-emoji
+    state: present
+  become: true
+  tags:
+    - home
+
+- name: Refresh font cache
+  command: fc-cache -fv
+  tags:
+    - nerd-font
+    - home

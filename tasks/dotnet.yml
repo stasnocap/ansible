@@ -1,0 +1,56 @@
+- name: Download Microsoft package repository
+  get_url:
+    url: https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb
+    dest: /tmp/packages-microsoft-prod.deb
+  tags:
+    - dotnet
+    - wsl
+    - home
+
+- name: Install Microsoft package repository
+  apt:
+    deb: /tmp/packages-microsoft-prod.deb
+  become: true
+  tags:
+    - dotnet
+    - wsl
+    - home
+
+- name: Remove downloaded package
+  file:
+    path: /tmp/packages-microsoft-prod.deb
+    state: absent
+  become: true
+  tags:
+    - dotnet
+    - wsl
+    - home
+
+- name: Update package lists
+  apt:
+    update_cache: yes
+  become: true
+  tags:
+    - dotnet
+    - wsl
+    - home
+
+- name: Install .NET SDK 9.0
+  apt:
+    name: dotnet-sdk-9.0
+    state: present
+  become: true
+  tags:
+    - dotnet
+    - wsl
+    - home
+
+- name: Install .NET SDK 8.0
+  apt:
+    name: dotnet-sdk-8.0
+    state: present
+  become: true
+  tags:
+    - dotnet
+    - wsl
+    - home

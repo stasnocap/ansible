@@ -1,0 +1,13 @@
+- name: Install stuff ("htop", "pavucontrol", "playerctl", "xorg", "i3", "vlc", "qbittorrent", "telegram-desktop")
+  apt:
+    name: ["htop", "pavucontrol", "playerctl", "xorg", "i3", "vlc", "qbittorrent", "telegram-desktop", "bluetooth", "bluez", "bluez-tools"]
+    state: present
+  become: true
+  tags:
+    - home
+
+- name: Set the timezone to Europe/Minsk
+  command: timedatectl set-timezone Europe/Minsk
+  become: true
+  tags:
+    - home

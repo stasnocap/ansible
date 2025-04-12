@@ -1,0 +1,79 @@
+- name: Remove st repository folder
+  file:
+    path: "/home/stasnocap/st"
+    state: absent
+  tags:
+    - st
+    - home
+
+- name: Clone st repository
+  git:
+    repo: https://git.suckless.org/st
+    dest: "/home/stasnocap/st"
+  tags:
+    - st
+    - home
+
+- name: Replace ST font configuration in config file
+  replace:
+    path: "/home/stasnocap/st/config.def.h"
+    regexp: 'static char \*font = ".+:(.+)=\d+:(.+)";'
+    replace: 'static char *font = "JetbrainsMono Nerd Font:\1=20:\2";'
+  tags:
+    - st
+    - font
+
+- name: Apply catpuccin theme 1
+  replace:
+    path: "/home/stasnocap/st/config.def.h"
+    regexp: 'static const char \*colorname\[\] = {[\s\S]*?\};'
+    replace: 'static const char *colorname[] = { "#5C5F77", "#D20F39", "#40A02B", "#DF8E1D", "#1E66F5", "#EA76CB", "#179299", "#ACB0BE", "#6C6F85", "#D20F39", "#40A02B", "#DF8E1D", "#1E66F5", "#EA76CB", "#179299", "#BCC0CC", [256] = "#4C4F69", [257] = "#EFF1F5", [258] = "#DC8A78", };'
+  tags:
+    - st
+    - font
+
+- name: Apply catpuccin theme 2
+  replace:
+    path: "/home/stasnocap/st/config.def.h"
+    regexp: 'unsigned int defaultfg = 258;'
+    replace: 'unsigned int defaultfg = 256;'
+  tags:
+    - st
+    - font
+
+- name: Apply catpuccin theme 3
+  replace:
+    path: "/home/stasnocap/st/config.def.h"
+    regexp: 'unsigned int defaultbg = 259;'
+    replace: 'unsigned int defaultbg = 257;'
+  tags:
+    - st
+    - font
+
+- name: Apply catpuccin theme 4
+  replace:
+    path: "/home/stasnocap/st/config.def.h"
+    regexp: 'unsigned int defaultcs = 256;'
+    replace: 'unsigned int defaultcs = 258;'
+  tags:
+    - st
+    - font
+
+- name: Apply catpuccin theme 5
+  replace:
+    path: "/home/stasnocap/st/config.def.h"
+    regexp: 'static unsigned int defaultrcs = 257;'
+    replace: 'static unsigned int defaultrcs = 258;'
+  tags:
+    - st
+    - font
+
+- name: Compile and install st
+  command:
+    cmd: make clean install
+  args:
+    chdir: "/home/stasnocap/st"
+  become: true
+  tags:
+    - st
+    - home

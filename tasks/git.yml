@@ -1,0 +1,34 @@
+- name: Git personal setup email
+  git_config:
+    name: user.email
+    scope: global
+    value: "stasnocap@gmail.com"
+  tags:
+    - git-personal
+    - wsl
+    - home
+
+- name: Git personal setup name
+  git_config:
+    name: user.name
+    scope: global
+    value: "stasnocap"
+  tags:
+    - git-personal
+    - wsl
+    - home
+
+- name: Set Neovim as Git's default editor
+  ansible.builtin.command:
+    cmd: git config --global core.editor "nvim"
+  tags:
+    - git-personal
+    - wsl
+    - home
+
+# damn work issues
+- name: Disable SSL verification in Git
+  ansible.builtin.command: git config --global http.sslVerify false
+  tags:
+    - git-personal
+    - wsl

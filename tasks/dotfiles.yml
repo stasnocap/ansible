@@ -1,0 +1,33 @@
+- name: Installing stow
+  apt: name=stow
+  become: true
+  tags:
+    - dotfiles
+    - wsl
+    - home
+
+- name: Cloning .dotfiles
+  ansible.builtin.git:
+    repo: 'git@github.com:stasnocap/.dotfiles.git'
+    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    recursive: yes
+    update: yes
+    accept_hostkey: yes
+    version: main
+  tags:
+    - dotfiles
+    - wsl
+    - home
+
+- name: Execute Dreymar Xmod installation script
+  command: "/home/stasnocap/.dotfiles/xkb/install-dreymar-xmod.sh"
+  become: true
+  tags:
+    - home
+
+- name: Stow dotfiles
+  shell: cd $HOME/.dotfiles && ./install
+  tags:
+    - dotfiles
+    - wsl
+    - home

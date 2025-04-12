@@ -1,0 +1,34 @@
+- name: Install drivers
+  apt:
+    name: ["firmware-iwlwifi", "firmware-linux-free", "firmware-linux-nonfree", "network-manager"]
+    state: present
+  become: true
+  tags:
+    - drivers
+    - home
+
+- name: Ensure contrib and non-free repositories are added
+  apt_repository:
+    repo: "deb http://deb.debian.org/debian bookworm main contrib non-free"
+    state: present
+  become: true
+  tags:
+    - drivers
+    - home
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  become: true
+  tags:
+    - drivers
+    - home
+
+- name: Install NVIDIA driver
+  apt:
+    name: nvidia-driver
+    state: present
+  become: true
+  tags:
+    - drivers
+    - home

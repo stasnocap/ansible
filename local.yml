@@ -1,0 +1,121 @@
+- hosts: localhost
+  vars:
+    source_key: "{{ playbook_dir }}/.ssh/id_rsa"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+    personal: "{{ lookup('env', 'HOME') }}/personal"
+    work: "{{ lookup('env', 'HOME') }}/work"
+  pre_tasks:
+  - name: Update Apt
+    become: true
+    apt:
+      force_apt_get: true
+      update_cache: true
+      state: present
+    tags:
+      - core
+      - wsl
+      - home
+  tasks:
+    - name: Include core Setup Tasks
+      ansible.builtin.include_tasks: tasks/core.yml
+      tags:
+        - neovim
+        - st
+        - core
+        - wsl
+        - home
+    - name: Include Drivers Setup Tasks
+      ansible.builtin.include_tasks: tasks/drivers.yml
+      tags:
+        - drivers
+        - home
+    - name: Include Sound Drivers Setup Tasks
+      ansible.builtin.include_tasks: tasks/sound-drivers.yml
+      tags:
+        - sound-drivers
+        - home
+    - name: Include SSH Setup Tasks
+      ansible.builtin.include_tasks: tasks/ssh.yml
+      tags:
+        - dotfiles
+        - ssh
+        - wsl
+        - home
+    - name: Include Git Setup Tasks
+      ansible.builtin.include_tasks: tasks/git.yml
+      tags:
+        - git-personal
+        - wsl
+        - home
+    - name: Include Neovim Setup Tasks
+      ansible.builtin.include_tasks: tasks/nvim.yml
+      tags:
+        - neovim
+        - wsl
+        - home
+    - name: Include Dotnet Setup Tasks
+      ansible.builtin.include_tasks: tasks/dotnet.yml
+      tags:
+        - dotnet
+        - wsl
+        - home
+    - name: Include Node Setup Tasks
+      ansible.builtin.include_tasks: tasks/node.yml
+      tags:
+        - node
+        - wsl
+        - home
+    - name: Include Npm Packages Setup Tasks
+      ansible.builtin.include_tasks: tasks/npm-packages.yml
+      tags:
+        - node
+        - wsl
+        - home
+    - name: Include Zsh Setup Tasks
+      ansible.builtin.include_tasks: tasks/zsh.yml
+      tags:
+        - zsh
+        - dotfiles
+        - wsl
+        - home
+    - name: Include Nerd Font Setup Tasks
+      ansible.builtin.include_tasks: tasks/nerd-font.yml
+      tags:
+        - nerd-font
+        - home
+    - name: Include St Setup Tasks
+      ansible.builtin.include_tasks: tasks/st.yml
+      tags:
+        - st
+        - home
+    - name: Include Brave Setup Tasks
+      ansible.builtin.include_tasks: tasks/brave.yml
+      tags:
+        - brave
+        - home
+    - name: Include Dotfiles Setup Tasks
+      ansible.builtin.include_tasks: tasks/dotfiles.yml
+      tags:
+        - dotfiles
+        - wsl
+        - home
+    - name: Include Work Projects Setup Tasks
+      ansible.builtin.include_tasks: tasks/work-projects.yml
+      tags:
+        - work-projects
+    - name: Include Productivity Tools Setup Tasks
+      ansible.builtin.include_tasks: tasks/productivity-tools.yml
+      tags:
+        - productivity
+        - wsl
+        - home
+    - name: Include Docker Setup Tasks
+      ansible.builtin.include_tasks: tasks/docker.yml
+      tags:
+        - docker
+        - wsl
+        - home
+    - name: Include Home Setup Tasks
+      ansible.builtin.include_tasks: tasks/home.yml
+      tags:
+        - home
