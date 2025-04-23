@@ -8,14 +8,12 @@
   become: true
   tags:
     - sound-drivers
-    - home
 
 - name: Enable lingering for the user
   command: loginctl enable-linger stasnocap
   become: true
   tags:
     - sound-drivers
-    - home
 
 - name: Enable PipeWire service
   command: systemctl --user enable pipewire
@@ -25,7 +23,6 @@
   become_user: "stasnocap"
   tags:
     - sound-drivers
-    - home
 
 - name: Start PipeWire service
   command: systemctl --user start pipewire
@@ -35,7 +32,6 @@
   become_user: "stasnocap"
   tags:
     - sound-drivers
-    - home
 
 - name: Enable PipeWire Pulse service
   command: systemctl --user enable pipewire-pulse
@@ -45,7 +41,6 @@
   become_user: "stasnocap"
   tags:
     - sound-drivers
-    - home
 
 - name: Start PipeWire Pulse service
   command: systemctl --user start pipewire-pulse
@@ -55,7 +50,6 @@
   become_user: "stasnocap"
   tags:
     - sound-drivers
-    - home
 
 - name: Remove PulseAudio
   apt:
@@ -65,7 +59,6 @@
   become: true
   tags:
     - sound-drivers
-    - home
 
 - name: Remove PulseAudio configuration
   file:
@@ -74,4 +67,3 @@
   become: true
   tags:
     - sound-drivers
-    - home
