@@ -27,3 +27,13 @@
     - node
     - wsl
     - home
+
+- name: Install Js-beautify
+  npm:
+    name: js-beautify
+    global: yes
+  become: true
+  tags:
+    - node
+    - wsl
+    - home
